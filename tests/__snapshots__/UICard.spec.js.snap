@@ -1,0 +1,383 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<UICard /> Disabled card should render properly 1`] = `
+<div
+  data-radium={true}
+  onClick={[Function]}
+  style={
+    Object {
+      "background": "#383737",
+      "borderColor": "#383737",
+      "borderStyle": "solid",
+      "borderWidth": "4px",
+      "boxSizing": "border-box",
+      "color": "white",
+      "cursor": "normal",
+      "display": "inline-block",
+      "fontFamily": "Montserrat",
+      "fontSize": "25px",
+      "fontWeight": "800",
+      "height": "54px",
+      "lineHeight": "45px",
+      "marginRight": "5px",
+      "opacity": "0.2",
+      "textAlign": "center",
+      "transition": "all 200ms linear",
+      "verticalAlign": "bottom",
+      "width": "40px",
+    }
+  }
+>
+  <div
+    style={undefined}
+  >
+    3
+  </div>
+</div>
+`;
+
+exports[`<UICard /> Empty card should render properly 1`] = `
+<div
+  data-radium={true}
+  onClick={[Function]}
+  style={
+    Object {
+      "background": "#D7D8D7",
+      "borderColor": "#D7D8D7",
+      "borderStyle": "solid",
+      "borderWidth": "4px",
+      "boxSizing": "border-box",
+      "color": "white",
+      "cursor": "pointer",
+      "display": "inline-block",
+      "fontFamily": "Montserrat",
+      "fontSize": "25px",
+      "fontWeight": "800",
+      "height": "54px",
+      "lineHeight": "45px",
+      "marginRight": "5px",
+      "textAlign": "center",
+      "transition": "all 200ms linear",
+      "verticalAlign": "bottom",
+      "width": "40px",
+    }
+  }
+>
+  <div
+    style={undefined}
+  />
+</div>
+`;
+
+exports[`<UICard /> Empty cards should render properly 1`] = `
+<div
+  data-radium={true}
+  onClick={[Function]}
+  style={
+    Object {
+      "background": "#D7D8D7",
+      "borderColor": "#D7D8D7",
+      "borderStyle": "solid",
+      "borderWidth": "4px",
+      "boxSizing": "border-box",
+      "color": "white",
+      "cursor": "pointer",
+      "display": "inline-block",
+      "fontFamily": "Montserrat",
+      "fontSize": "25px",
+      "fontWeight": "800",
+      "height": "54px",
+      "lineHeight": "45px",
+      "marginRight": "5px",
+      "textAlign": "center",
+      "transition": "all 200ms linear",
+      "verticalAlign": "bottom",
+      "width": "40px",
+    }
+  }
+>
+  <div
+    style={undefined}
+  />
+</div>
+`;
+
+exports[`<UICard /> Selected cards should render properly 1`] = `
+<div
+  data-radium={true}
+  onClick={[Function]}
+  style={
+    Object {
+      "background": "#383737",
+      "borderColor": "#ffc862",
+      "borderStyle": "solid",
+      "borderWidth": "4px",
+      "boxSizing": "border-box",
+      "color": "white",
+      "cursor": "pointer",
+      "display": "inline-block",
+      "fontFamily": "Montserrat",
+      "fontSize": "25px",
+      "fontWeight": "800",
+      "height": "54px",
+      "lineHeight": "45px",
+      "marginRight": "5px",
+      "textAlign": "center",
+      "transition": "all 200ms linear",
+      "verticalAlign": "bottom",
+      "width": "40px",
+    }
+  }
+>
+  <div
+    style={undefined}
+  >
+    8
+  </div>
+</div>
+`;
+
+exports[`<UICard /> Selected cards should render properly 2`] = `
+<div
+  data-radium={true}
+  onClick={[Function]}
+  style={
+    Object {
+      "background": "#D28A86",
+      "borderColor": "#ffc862",
+      "borderStyle": "solid",
+      "borderWidth": "4px",
+      "boxSizing": "border-box",
+      "color": "white",
+      "cursor": "pointer",
+      "display": "inline-block",
+      "fontFamily": "Montserrat",
+      "fontSize": "25px",
+      "fontWeight": "800",
+      "height": "54px",
+      "lineHeight": "45px",
+      "marginRight": "5px",
+      "textAlign": "center",
+      "transition": "all 200ms linear",
+      "verticalAlign": "bottom",
+      "width": "40px",
+    }
+  }
+>
+  <div
+    style={undefined}
+  >
+    8
+  </div>
+</div>
+`;
+
+exports[`<UICard /> Selected cards should render properly 3`] = `
+<div
+  data-radium={true}
+  onClick={[Function]}
+  style={
+    Object {
+      "background": "#5B97DF",
+      "borderColor": "#ffc862",
+      "borderStyle": "solid",
+      "borderWidth": "4px",
+      "boxSizing": "border-box",
+      "color": "white",
+      "cursor": "pointer",
+      "display": "inline-block",
+      "fontFamily": "Montserrat",
+      "fontSize": "25px",
+      "fontWeight": "800",
+      "height": "54px",
+      "lineHeight": "45px",
+      "marginRight": "5px",
+      "textAlign": "center",
+      "transition": "all 200ms linear",
+      "verticalAlign": "bottom",
+      "width": "40px",
+    }
+  }
+>
+  <div
+    style={undefined}
+  >
+    8
+  </div>
+</div>
+`;
+
+exports[`<UICard /> Selected cards should render properly 4`] = `
+<div
+  data-radium={true}
+  onClick={[Function]}
+  style={
+    Object {
+      "background": "rgb(100, 195, 83)",
+      "borderColor": "#ffc862",
+      "borderStyle": "solid",
+      "borderWidth": "4px",
+      "boxSizing": "border-box",
+      "color": "white",
+      "cursor": "pointer",
+      "display": "inline-block",
+      "fontFamily": "Montserrat",
+      "fontSize": "25px",
+      "fontWeight": "800",
+      "height": "54px",
+      "lineHeight": "45px",
+      "marginRight": "5px",
+      "textAlign": "center",
+      "transition": "all 200ms linear",
+      "verticalAlign": "bottom",
+      "width": "40px",
+    }
+  }
+>
+  <div
+    style={undefined}
+  >
+    8
+  </div>
+</div>
+`;
+
+exports[`<UICard /> cards should render properly 1`] = `
+<div
+  data-radium={true}
+  onClick={[Function]}
+  style={
+    Object {
+      "background": "#383737",
+      "borderColor": "#383737",
+      "borderStyle": "solid",
+      "borderWidth": "4px",
+      "boxSizing": "border-box",
+      "color": "white",
+      "cursor": "pointer",
+      "display": "inline-block",
+      "fontFamily": "Montserrat",
+      "fontSize": "25px",
+      "fontWeight": "800",
+      "height": "54px",
+      "lineHeight": "45px",
+      "marginRight": "5px",
+      "textAlign": "center",
+      "transition": "all 200ms linear",
+      "verticalAlign": "bottom",
+      "width": "40px",
+    }
+  }
+>
+  <div
+    style={undefined}
+  >
+    8
+  </div>
+</div>
+`;
+
+exports[`<UICard /> cards should render properly 2`] = `
+<div
+  data-radium={true}
+  onClick={[Function]}
+  style={
+    Object {
+      "background": "#D28A86",
+      "borderColor": "#D28A86",
+      "borderStyle": "solid",
+      "borderWidth": "4px",
+      "boxSizing": "border-box",
+      "color": "white",
+      "cursor": "pointer",
+      "display": "inline-block",
+      "fontFamily": "Montserrat",
+      "fontSize": "25px",
+      "fontWeight": "800",
+      "height": "54px",
+      "lineHeight": "45px",
+      "marginRight": "5px",
+      "textAlign": "center",
+      "transition": "all 200ms linear",
+      "verticalAlign": "bottom",
+      "width": "40px",
+    }
+  }
+>
+  <div
+    style={undefined}
+  >
+    8
+  </div>
+</div>
+`;
+
+exports[`<UICard /> cards should render properly 3`] = `
+<div
+  data-radium={true}
+  onClick={[Function]}
+  style={
+    Object {
+      "background": "#5B97DF",
+      "borderColor": "#5B97DF",
+      "borderStyle": "solid",
+      "borderWidth": "4px",
+      "boxSizing": "border-box",
+      "color": "white",
+      "cursor": "pointer",
+      "display": "inline-block",
+      "fontFamily": "Montserrat",
+      "fontSize": "25px",
+      "fontWeight": "800",
+      "height": "54px",
+      "lineHeight": "45px",
+      "marginRight": "5px",
+      "textAlign": "center",
+      "transition": "all 200ms linear",
+      "verticalAlign": "bottom",
+      "width": "40px",
+    }
+  }
+>
+  <div
+    style={undefined}
+  >
+    8
+  </div>
+</div>
+`;
+
+exports[`<UICard /> cards should render properly 4`] = `
+<div
+  data-radium={true}
+  onClick={[Function]}
+  style={
+    Object {
+      "background": "rgb(100, 195, 83)",
+      "borderColor": "rgb(100, 195, 83)",
+      "borderStyle": "solid",
+      "borderWidth": "4px",
+      "boxSizing": "border-box",
+      "color": "white",
+      "cursor": "pointer",
+      "display": "inline-block",
+      "fontFamily": "Montserrat",
+      "fontSize": "25px",
+      "fontWeight": "800",
+      "height": "54px",
+      "lineHeight": "45px",
+      "marginRight": "5px",
+      "textAlign": "center",
+      "transition": "all 200ms linear",
+      "verticalAlign": "bottom",
+      "width": "40px",
+    }
+  }
+>
+  <div
+    style={undefined}
+  >
+    8
+  </div>
+</div>
+`;

@@ -1,0 +1,67 @@
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import _ from 'lodash';
+import { closeModal } from '../actions';
+import HandPicker from '../components/modals/HandPicker';
+import Radium from 'radium';
+
+
+const ModalsContainer = ({ modals, onCloseModal }) => {
+    let cardPicker = false;
+    _.each(modals, (modal) => {
+        switch (modal.modalId) {
+            case 'cardPicker':
+                cardPicker = (
+                    <HandPicker
+                        closeModal={() => onCloseModal('cardPicker') }
+                        street={modal.data.street}
+                    />
+                );
+                break;
+            default:
+        }
+    });
+
+    if (modals.length === 0) {
+        return false;
+    }
+
+    return (
+        <div style={style.base}>
+            {cardPicker}
+        </div>
+    );
+};
+
+ModalsContainer.propTypes = {
+    modals: PropTypes.array,
+    onCloseModal: PropTypes.func
+};
+
+const mapStateToProps = (state) => {
+    return {
+        modals: state.modals
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onCloseModal: (modalId) => dispatch(closeModal(modalId))
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Radium(ModalsContainer));
+
+
+const style = {
+    base: {
+        position: 'absolute',
+        width: '100%',
+        top: '0',
+        zIndex: '1',
+        height: '100%'
+    }
+};
