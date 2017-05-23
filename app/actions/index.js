@@ -1,5 +1,7 @@
 import * as types from './types';
 import utils from '../utils/utils';
+import request from 'superagent';
+import _ from 'lodash';
 
 export function filterTable(filter) {
     return {
@@ -99,20 +101,48 @@ export function startEquities(cards) {
             type: types.START_EQUITIES
         });
 
-        dispatch(callApi(cards));
+        // dispatch(callApi(cards));
+        setTimeout(function() {
+            return callApi(cards, dispatch);
+        }, 500);
     };
 }
 
-function callApi(cards) {
-    console.log('cards: ', cards);
-    return (dispatch) => {
-        setTimeout(function() {
+function formatCard(card) {
+    if (!_.isEmpty(card)) {
+        return card.rank + card.suit.charAt(0);
+    }
+
+    return '';
+}
+
+function truncate(equity) {
+    const floatEquity = parseFloat(equity) * 100;
+    return Math.round(floatEquity * 100) / 100;
+}
+
+function callApi(cards, dispatch) {
+    const cardsPlayers = [];
+    let board = '';
+
+    cardsPlayers.push(formatCard(cards.player1[0]) + formatCard(cards.player1[1]));
+    cardsPlayers.push(formatCard(cards.player2[0]) + formatCard(cards.player2[1]));
+
+    _.map(cards.flop, (c) => {
+        board += formatCard(c);
+    });
+
+    board += formatCard(cards.turn);
+    board += formatCard(cards.river);
+
+    return request.post('http://localhost:8000/api')
+        .send({ hands: cardsPlayers, board: board })
+        .end(function(err, res) {
             dispatch(gotEquities({
-                player1: 55,
-                player2: 45
+                player1: truncate(res.body[0][1]),
+                player2: truncate(res.body[1][1])
             }));
-        }, 2000);
-    };
+        });
 }
 
 function gotEquities(equities) {
