@@ -17,28 +17,42 @@
 }
 
 .spade {
-    background: #383737;
-    border: 1px solid #383737;
+    background: #4e4e4e;
+    border: 1px solid #4e4e4e;
+
+
+    &.selected {
+        background: black;
+    }
 }
 
 .heart {
     border: 1px solid #D28A86;
     background: #D28A86;
+
+    &.selected {
+        background: #bb2424;
+    }
 }
 
 .club {
     border: 1px solid rgb(100, 195, 83);
     background: rgb(100, 195, 83);
+
+    &.selected {
+        background: #178e17;
+    }
 }
 
 .diamond {
     border: 1px solid #5B97DF;
     background: #5B97DF;
+
+    &.selected {
+        background: #254ec1;
+    }
 }
 
-.selected {
-    border: 1px solid #ff5200;
-}
 
 .disabled {
     opacity: 0.6;
@@ -47,8 +61,8 @@
 @media screen and (max-width: 500px) {
     .card {
         width: 20px;
-        height: 30px;
-        line-height: 30px;
+        height: 32px;
+        line-height: 32px;
         font-size: 17px;
     }
 }

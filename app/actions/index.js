@@ -59,15 +59,31 @@ export function removeCard(card, street) {
 }
 
 export function clearBoard() {
-    return {
-        type: types.CLEAR_BOARD
+    return (dispatch, getState) => {
+        dispatch({
+            type: types.CLEAR_BOARD
+        });
+
+        const cards = getState().cards;
+        if (utils.areEquitiesCalculable(cards)) {
+            dispatch(startEquitiesDispatch());
+            callApi(cards, dispatch);
+        }
     };
 }
 
 export function clearPlayer(player) {
-    return {
-        type: types.CLEAR_PLAYER,
-        player: player
+    return (dispatch, getState) => {
+        dispatch({
+            type: types.CLEAR_PLAYER,
+            player: player
+        });
+
+        const cards = getState().cards;
+        if (utils.areEquitiesCalculable(cards)) {
+            dispatch(startEquitiesDispatch());
+            callApi(cards, dispatch);
+        }
     };
 }
 
@@ -163,19 +179,37 @@ function callApi(cards, dispatch) {
 
 
 function gotEquities(result, cards) {
-    const r1 = _.isUndefined(result[0]) ? null : truncate(result[0][1]);
-    const r2 = _.isUndefined(result[1]) ? null : truncate(result[1][1]);
-    const r3 = _.isUndefined(result[2]) ? null : truncate(result[2][1]);
-    const r4 = _.isUndefined(result[3]) ? null : truncate(result[3][1]);
+    // const r1 = _.isUndefined(result[0]) ? null : truncate(result[0][1]);
+    // const r2 = _.isUndefined(result[1]) ? null : truncate(result[1][1]);
+    // const r3 = _.isUndefined(result[2]) ? null : truncate(result[2][1]);
+    // const r4 = _.isUndefined(result[3]) ? null : truncate(result[3][1]);
 
-    console.log(result);
-    console.log(cards);
+    const equities = [null, null, null, null];
+
+    // console.log(result);
+    // console.log(cards);
+
+    const indexPlayers = [];
+    const range = _.range(1, 5);
+
+    _.map(range, i => {
+        const index = 'player' + i;
+        if (cards[index].length === 2) {
+            indexPlayers.push(i);
+        }
+    });
+
+    _.map(result, (r, i) => {
+        const iPlayer = indexPlayers[i];
+        equities[iPlayer - 1] = truncate(r[1]);
+        console.log(iPlayer);
+    });
 
     return {
         type: types.GOT_EQUITIES,
-        player1: r1,
-        player2: r2,
-        player3: r3,
-        player4: r4
+        player1: equities[0],
+        player2: equities[1],
+        player3: equities[2],
+        player4: equities[3]
     };
 }

@@ -41,7 +41,7 @@ const utils = {
         );
     },
     getDisabledCardsForStreet: (cards, street) => {
-        const streets = ['player1', 'player2', 'flop', 'turn', 'river'];
+        const streets = ['player1', 'player2', 'player3', 'player4', 'flop', 'turn', 'river'];
         const index = streets.indexOf(street);
         streets.splice(index, 1);
 

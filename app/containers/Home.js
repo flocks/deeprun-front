@@ -11,7 +11,7 @@ import positions from '../styles/positions.scss';
 import _ from 'lodash';
 
 
-const range = _.range(1, 3);
+const range = _.range(1, 5);
 
 const Home = ({onModal, cards, onClearBoard, equities}) => {
     return (

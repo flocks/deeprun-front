@@ -56,6 +56,8 @@ const isSelectable = (cardsSelected, street) => {
     switch(street) {
         case 'player1':
         case 'player2':
+        case 'player3':
+        case 'player4':
             selectable = (cardsSelected.length < 2);
             break;
         case 'flop':
@@ -71,6 +73,7 @@ const isSelectable = (cardsSelected, street) => {
 
 const HandPicker = ({ ...props, onUnselect, onSelect, onClearFlop, onClearTurn, onClearRiver, onClearPlayer }) => {
     const ranks = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2'];
+    const suits = ['heart', 'spade', 'club', 'diamond'];
     const disabledCards = utils.getDisabledCardsForStreet(props.cards, props.street);
 
     const selectedCards = extractSelectedCards(props.cards, props.street);
@@ -102,69 +105,23 @@ const HandPicker = ({ ...props, onUnselect, onSelect, onClearFlop, onClearTurn, 
                 <h3>{utils.capitalizeFirstLetter(props.street)}</h3>
             </div>
             <div>
-                {_.map(ranks, (rank) => {
-                    const key = 'heart_' + rank;
-                    const card = { rank: rank, suit: 'heart'};
+                { _.map(suits, suit => {
+                    return _.map(ranks, rank => {
+                        const key = suit + '_' + rank;
+                        const card = { rank: rank, suit: suit};
 
-                    return (
-                        <UICard
-                            card={card}
-                            key={key}
-                            selected={isSelected(card, selectedCards)}
-                            disabled={isDisabled(card, disabledCards)}
-                            onClick={HandleClick.bind(this, card)}
-                        />
-                    );
+                        return (
+                            <UICard
+                                card={card}
+                                key={key}
+                                selected={isSelected(card, selectedCards)}
+                                disabled={isDisabled(card, disabledCards)}
+                                onClick={HandleClick.bind(this, card)}
+                            />
+                        );
+                    });
                 })}
 
-            </div>
-            <div>
-                {_.map(ranks, (rank) => {
-                    let key = 'spade_' + rank;
-                    let card = { rank: rank, suit: 'spade'};
-
-                    return (
-                        <UICard
-                            card={card}
-                            key={key}
-                            disabled={isDisabled(card, disabledCards)}
-                            selected={isSelected(card, selectedCards)}
-                            onClick={HandleClick.bind(this, card)}
-                        />
-                    );
-                })}
-            </div>
-            <div>
-                {_.map(ranks, (rank) => {
-                    let key = 'club_' + rank;
-                    let card = { rank: rank, suit: 'club'};
-
-                    return (
-                        <UICard
-                            card={card}
-                            key={key}
-                            selected={isSelected(card, selectedCards)}
-                            disabled={isDisabled(card, disabledCards)}
-                            onClick={HandleClick.bind(this, card)}
-                        />
-                    );
-                })}
-            </div>
-            <div>
-                {_.map(ranks, (rank) => {
-                    let key = 'diamond_' + rank;
-                    let card = { rank: rank, suit: 'diamond'};
-
-                    return (
-                        <UICard
-                            card={card}
-                            key={key}
-                            selected={isSelected(card, selectedCards)}
-                            onClick={HandleClick.bind(this, card)}
-                            disabled={isDisabled(card, disabledCards)}
-                        />
-                    );
-                })}
             </div>
             <div className={ styles.footer }>
                 <UIButton kind="clear" label="clear" onClick={clearStreet} kind="clear" />
