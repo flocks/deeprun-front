@@ -1,32 +1,17 @@
 import React, { PropTypes } from 'react';
 import ModalsContainer from '../containers/ModalsContainer';
-import Radium from 'radium';
-import {StyleRoot, Style} from 'radium';
 import Header from './Header';
 // import Presentation from './Presentation';
-import colors from '../styles/colors';
+import { app } from '../styles/app.scss';
 
 const App = ({ children }) => (
-    <StyleRoot>
-        <Style
-            rules={{
-                body: {
-                    background: colors.background,
-                    padding: '0',
-                    margin: '0',
-                    fontFamily: 'PT Sans'
-                }
-            }}
 
-        />
-
-        <div>
-            <Header />
-            {/* <Presentation /> */}
-            <ModalsContainer />
-            { children }
-        </div>
-    </StyleRoot>
+    <div className={ app }>
+        <Header />
+        {/* <Presentation /> */}
+        <ModalsContainer />
+        { children }
+    </div>
 );
 
 App.propTypes = {
@@ -34,4 +19,4 @@ App.propTypes = {
 };
 
 
-export default Radium(App);
+export default App;

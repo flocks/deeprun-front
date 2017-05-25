@@ -2,7 +2,20 @@ import _ from 'lodash';
 
 const utils = {
     areEquitiesCalculable: (cards) => {
-        const isPlayers = (cards.player1.length === 2 && cards.player2.length === 2);
+        let countPlayers = 0;
+        const cardsPlayers = [];
+        cardsPlayers.push(cards.player1);
+        cardsPlayers.push(cards.player2);
+        cardsPlayers.push(cards.player3);
+        cardsPlayers.push(cards.player4);
+
+        _.map(cardsPlayers, (p) => {
+            if (p.length === 2) {
+                countPlayers++;
+            }
+        });
+
+        const isPlayers = (countPlayers >= 2); // (cards.player1.length === 2 && cards.player2.length === 2);
         const isFlop = (cards.flop.length === 3);
 
         if (!_.isEmpty(cards.river)) {
@@ -49,6 +62,9 @@ const utils = {
     },
     capitalizeFirstLetter: (string) => {
         return string.charAt(0).toUpperCase() + string.slice(1);
+    },
+    convertHandToString: (card) => {
+        return card.rank + card.suit.chatAt(0);
     }
 };
 

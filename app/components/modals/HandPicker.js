@@ -2,12 +2,13 @@ import React, { PropTypes } from 'react';
 import { addCard, removeCard, clearFlop, clearTurn, clearRiver, clearPlayer } from '../../actions';
 import UICard from '../UICard';
 import { connect } from 'react-redux';
-import Radium, { StyleRoot } from 'radium';
 import _ from 'lodash';
 import UIButton from '../UIButton';
 import utils from '../../utils/utils';
-import { zoomIn } from 'react-animations';
-import closeImage from '../../images/close.png';
+// import closeImage from '../../images/close.png';
+import styles from '../../styles/handpicker.scss';
+import modalBinding from '../decorators/modalBinding';
+
 
 const isDisabled = (_card, _cardsDisabled) => {
     let disabled = false;
@@ -22,6 +23,7 @@ const isDisabled = (_card, _cardsDisabled) => {
 
 const isSelected = (_card, _cardsSelected) => {
     let selected = false;
+
     _.each(_cardsSelected, (card) => {
         if (card.rank === _card.rank && _card.suit === card.suit) {
             selected = true;
@@ -67,7 +69,7 @@ const isSelectable = (cardsSelected, street) => {
     return selectable;
 };
 
-let HandPicker = ({ ...props, onUnselect, onSelect, onClearFlop, onClearTurn, onClearRiver, onClearPlayer }) => {
+const HandPicker = ({ ...props, onUnselect, onSelect, onClearFlop, onClearTurn, onClearRiver, onClearPlayer }) => {
     const ranks = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2'];
     const disabledCards = utils.getDisabledCardsForStreet(props.cards, props.street);
 
@@ -95,16 +97,14 @@ let HandPicker = ({ ...props, onUnselect, onSelect, onClearFlop, onClearTurn, on
 
 
     return (
-        <StyleRoot style={style.base}>
-            <div style={style.header}>
-                <h3 style={style.street}>{utils.capitalizeFirstLetter(props.street)}</h3>
-                <h4 style={style.sub_street}>Pick 2 cards</h4>
-                <img style={style.close} src={closeImage} onClick={props.closeModal}/>
+        <div className={ styles.handpicker }>
+            <div>
+                <h3>{utils.capitalizeFirstLetter(props.street)}</h3>
             </div>
-            <div style={style.row}>
+            <div>
                 {_.map(ranks, (rank) => {
-                    let key = 'heart_' + rank;
-                    let card = { rank: rank, suit: 'heart'};
+                    const key = 'heart_' + rank;
+                    const card = { rank: rank, suit: 'heart'};
 
                     return (
                         <UICard
@@ -113,13 +113,12 @@ let HandPicker = ({ ...props, onUnselect, onSelect, onClearFlop, onClearTurn, on
                             selected={isSelected(card, selectedCards)}
                             disabled={isDisabled(card, disabledCards)}
                             onClick={HandleClick.bind(this, card)}
-                            style={styleCard}
                         />
                     );
                 })}
 
             </div>
-            <div style={style.row}>
+            <div>
                 {_.map(ranks, (rank) => {
                     let key = 'spade_' + rank;
                     let card = { rank: rank, suit: 'spade'};
@@ -131,12 +130,11 @@ let HandPicker = ({ ...props, onUnselect, onSelect, onClearFlop, onClearTurn, on
                             disabled={isDisabled(card, disabledCards)}
                             selected={isSelected(card, selectedCards)}
                             onClick={HandleClick.bind(this, card)}
-                            style={styleCard}
                         />
                     );
                 })}
             </div>
-            <div style={style.row}>
+            <div>
                 {_.map(ranks, (rank) => {
                     let key = 'club_' + rank;
                     let card = { rank: rank, suit: 'club'};
@@ -148,12 +146,11 @@ let HandPicker = ({ ...props, onUnselect, onSelect, onClearFlop, onClearTurn, on
                             selected={isSelected(card, selectedCards)}
                             disabled={isDisabled(card, disabledCards)}
                             onClick={HandleClick.bind(this, card)}
-                            style={styleCard}
                         />
                     );
                 })}
             </div>
-            <div style={style.row}>
+            <div>
                 {_.map(ranks, (rank) => {
                     let key = 'diamond_' + rank;
                     let card = { rank: rank, suit: 'diamond'};
@@ -165,16 +162,15 @@ let HandPicker = ({ ...props, onUnselect, onSelect, onClearFlop, onClearTurn, on
                             selected={isSelected(card, selectedCards)}
                             onClick={HandleClick.bind(this, card)}
                             disabled={isDisabled(card, disabledCards)}
-                            style={styleCard}
                         />
                     );
                 })}
             </div>
-            <div style={style.buttons}>
-                <UIButton style={style.buttons.left} label="clear" onClick={clearStreet} kind="clear" />
-                <UIButton style={style.buttons.right} label="Ok" onClick={props.closeModal} kind="green" />
+            <div className={ styles.footer }>
+                <UIButton kind="clear" label="clear" onClick={clearStreet} kind="clear" />
+                <UIButton className={ styles.valid } kind="valid" label="Ok" onClick={props.closeModal} />
             </div>
-        </StyleRoot>
+        </div>
     );
 };
 
@@ -207,101 +203,8 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-const style = {
-    base: {
-        background: 'white',
-        borderRadius: '4px',
-        boxShadow: '1px 2px 10px #b3b3b3',
-        width: '600px',
-        textAlign: 'center',
-        padding: '139px 20px 23px',
-        position: 'relative',
-        margin: '80px auto',
-        animation: 'x 100ms',
-        animationName: Radium.keyframes(zoomIn, 'zoomIn'),
-        '@media (max-width: 600px)': {
-            width: '100%',
-            padding: '139px 0',
-            margin: '70px auto'
-        }
-    },
-    header: {
-        background: '#f3f5f3',
-        position: 'absolute',
-        padding: '20px 20px 0',
-        top: '0',
-        right: '0',
-        left: '0',
-    },
-    close: {
-        position: 'absolute',
-        cursor: 'pointer',
-        top: '50%',
-        right: '36px',
-        marginTop: '-16px',
-        width: '32px'
-    },
-    street: {
-        color: '#4d4d4d',
-        textAlign: 'left',
-        margin: '0 10px 5px',
-        fontSize: '30px'
-    },
-    sub_street: {
-        margin: '0 10px 15px',
-        textAlign: 'left',
-        color: '#adadad',
-        fontWeight: '600',
-        fontSize: '17px'
-    },
-    row: {
-        display: 'inline-block',
-        marginBottom: '5px',
-        '@media (max-width: 568px)': {
-            textAlign: 'left'
-        }
-    },
-    buttons: {
-        marginTop: '20px',
-        position: 'relative',
-        height: '50px',
-        right: {
-            position: 'absolute',
-            right: '12px'
-        },
-        left: {
-            position: 'absolute',
-            left: '5px'
-        }
-    }
-};
 
-
-const styleCard = {
-    base: {
-        '@media (max-width: 600px)': {
-            width: '22px',
-            height: '33px',
-            lineHeight: '30px',
-            fontSize: '18px',
-            fontWeight: '600',
-            borderWidth: '3px',
-            marginBottom: '5px'
-        },
-        '@media (max-width: 568px)': {
-            width: '22px',
-            height: '33px',
-            lineHeight: '25px',
-            fontSize: '14px',
-            fontWeight: '600',
-            marginBottom: '5px',
-            marginRight: '1px'
-        }
-    }
-};
-
-HandPicker = Radium(HandPicker);
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(HandPicker);
+)(modalBinding(HandPicker));

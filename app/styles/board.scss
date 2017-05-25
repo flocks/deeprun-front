@@ -1,0 +1,30 @@
+.playerrow {
+    height: 70px;
+    position: relative;
+}
+
+.equity {
+    position: absolute;
+    right: 0;
+    top: 15px;
+    font-size: 22px;
+    font-weight: 600;
+    color: #4c4949;
+}
+
+.flop,
+.turn,
+.river {
+    display: inline-block;
+}
+
+.flop,
+.turn {
+    margin-right: 15px;
+}
+
+@media screen and (max-width: 500px) {
+    .equity {
+        top: 5px;
+    }
+}

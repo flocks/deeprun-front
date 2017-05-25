@@ -1,14 +1,18 @@
 import React, { PropTypes } from 'react';
-import Radium from 'radium';
-import { zoomIn } from 'react-animations';
+import styles from '../styles/spinner.scss';
+// import cx from 'classnames';
 
 const Spinner = ({ ...props }) => {
+    // let dot1 = cx(styles.dot, styles.dot1);
+    // let dot2 = cx(styles.dot, styles.dot2);
+    // let dot3 = cx(styles.dot, styles.dot3);
+
     if (props.isLoading) {
         return (
-            <div style={props.style}>
-                <div style={[style.base, style.dot1]}></div>
-                <div style={[style.base, style.dot2]}></div>
-                <div style={[style.base, style.dot3]}></div>
+            <div className={ styles.container }>
+                <div className={ styles.dot }></div>
+                <div className={ styles.dot }></div>
+                <div className={ styles.dot }></div>
             </div>);
     }
 
@@ -16,36 +20,11 @@ const Spinner = ({ ...props }) => {
 };
 
 Spinner.defaultProps = {
-    isLoading: false,
-    style: {}
+    isLoading: false
 };
 
 Spinner.propTypes = {
-    isLoading: PropTypes.bool,
-    style: PropTypes.object
+    isLoading: PropTypes.bool
 };
 
-
-const style = {
-    base: {
-        animation: 'x 1s infinite',
-        animationName: Radium.keyframes(zoomIn, 'zoomIn'),
-        background: 'grey',
-        display: 'inline-block',
-        borderRadius: '50%',
-        height: '7px',
-        width: '7px',
-        marginRight: '5px'
-    },
-    dot1: {
-        animationDelay: '100ms'
-    },
-    dot2: {
-        animationDelay: '200ms'
-    },
-    dot3: {
-        animationDelay: '300ms'
-    }
-};
-
-export default Radium(Spinner);
+export default Spinner;

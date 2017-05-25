@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import { closeModal } from '../actions';
 import HandPicker from '../components/modals/HandPicker';
-import Radium from 'radium';
 
 
 const ModalsContainer = ({ modals, onCloseModal }) => {
@@ -27,7 +26,7 @@ const ModalsContainer = ({ modals, onCloseModal }) => {
     }
 
     return (
-        <div style={style.base}>
+        <div>
             {cardPicker}
         </div>
     );
@@ -53,15 +52,6 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Radium(ModalsContainer));
+)(ModalsContainer);
 
 
-const style = {
-    base: {
-        position: 'absolute',
-        width: '100%',
-        top: '0',
-        zIndex: '1',
-        height: '100%'
-    }
-};

@@ -1,0 +1,49 @@
+.handpicker {
+    background: white;
+    position: absolute;
+    top: 80px;
+    left: 50%;
+    margin-left: -234px;
+    width: 478px;
+    border-radius: 5px;
+    box-shadow: 2px 3px 15px grey;
+    padding: 20px;
+    z-index: 2;
+
+    h3 {
+        margin-top: 0;
+    }
+
+    .card {
+        width: 50px;
+    }
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 30px;
+}
+
+.valid {
+    float: right;
+    margin-right: 10px;
+}
+
+.footer {
+    margin-top: 20px;
+}
+
+@media screen and (max-width: 500px) {
+    .handpicker {
+        width: 313px;
+        padding: 5px;
+        border-radius: 0;
+        margin-left: -160px;
+        top: 35px;
+    }
+}
+
+
+

@@ -6,6 +6,8 @@ let _cards;
 export const defaultState = {
     player1: [],
     player2: [],
+    player3: [],
+    player4: [],
     flop: [],
     turn: {},
     river: {}
@@ -15,6 +17,7 @@ const cards = (state = defaultState, action) => {
     switch (action.type) {
         case types.ADD_CARD:
             _cards = _.cloneDeep(state);
+
             if (action.street !== 'turn' && action.street !== 'river') {
                 if (_.isUndefined(_cards[action.street])) {
                     _cards[action.street] = [action.card];
@@ -45,8 +48,14 @@ const cards = (state = defaultState, action) => {
             if (action.player === 'player1') {
                 return {...state, player1: []};
             }
+            if (action.player === 'player2') {
+                return {...state, player2: []};
+            }
+            if (action.player === 'player3') {
+                return {...state, player3: []};
+            }
 
-            return {...state, player2: []};
+            return {...state, player4: []};
         case types.CLEAR_FLOP:
             return {...state, flop: []};
         case types.CLEAR_TURN:

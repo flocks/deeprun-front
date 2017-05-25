@@ -3,6 +3,8 @@ import * as types from '../actions/types';
 const defaultState = {
     player1: null,
     player2: null,
+    player3: null,
+    player4: null,
     isloading: false
 };
 
@@ -11,7 +13,13 @@ const equities = (state = defaultState, action) => {
         case types.START_EQUITIES:
             return {defaultState, isLoading: true};
         case types.GOT_EQUITIES:
-            return {defaultState, player1: action.player1, player2: action.player2};
+            return {
+                defaultState,
+                player1: action.player1,
+                player2: action.player2,
+                player3: action.player3,
+                player4: action.player4
+            };
         case types.ERROR_EQUITIES:
             return defaultState;
         case types.CLEAR_PLAYER:

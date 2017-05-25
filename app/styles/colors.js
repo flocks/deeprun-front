@@ -1,7 +1,7 @@
 const colors = {
     background: '#FAFBFA',
     header: '#FFFFFF',
-    faceOffCard: 'white',
+    faceOffCard: '#D7D8D7',
     faceOffBorderCard: '#D7D8D7',
     faceOffCardHover: 'rgb(171, 175, 171)',
     spade: '#383737',

@@ -1,0 +1,19 @@
+.btn {
+    cursor: pointer;
+    border: 0;
+    font-weight: bold;
+    width: 70px;
+    height: 30px;
+}
+
+.clear {
+    @extend .btn;
+    background: #342838;
+    color: white;
+}
+
+.valid {
+    @extend .btn;
+    background-color: #22bd6f;
+    color: white
+}

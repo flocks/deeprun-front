@@ -2,44 +2,52 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { openModal, clearBoard } from '../actions';
 import PlayerRow from '../components/PlayerRow';
-import Board from '../components/Board'; import Radium from 'radium';
+import Board from '../components/Board';
 import UIButton from '../components/UIButton';
 import Spinner from '../components/Spinner';
 import utils from '../utils/utils';
+import styles from '../styles/home.scss';
+import positions from '../styles/positions.scss';
+import _ from 'lodash';
 
+
+const range = _.range(1, 3);
 
 const Home = ({onModal, cards, onClearBoard, equities}) => {
-    const player1 = cards.player1;
-    const player2 = cards.player2;
-
     return (
-        <div style={style.base}>
-            <PlayerRow
-                label="player 1"
-                equity={equities.player1}
-                onClick={() => onModal('cardPicker', {street: 'player1'})}
-                cards={player1}
-            />
-            <PlayerRow
-                label="player 2"
-                equity={equities.player2}
-                onClick={() => onModal('cardPicker', {street: 'player2'})}
-                cards={player2}
-            />
+        <div className={ styles.home }>
+            <div className={ styles.titles }>
+                <span className={ styles.label }>Hands/Range</span>
+                <span className={ styles.label }>Equities</span>
+            </div>
+            { _.map(range, (i) => {
+                const p = 'player' + i;
+                return (
+                    <PlayerRow
+                        key={p}
+                        equity={equities[p]}
+                        onClick={() => onModal('cardPicker', {street: p})}
+                        cards={cards[p]}
+                    />
+                );
+            })}
+            <p className={ styles.label }>Board</p>
             <Board
                 onClick={(street) => onModal('cardPicker', {street: street})}
                 cards={cards}
             />
 
             {(utils.isClearable(cards)) ?
-                <UIButton
-                    label="clear"
-                    style={{position: 'absolute', left: '50%', margin: '15px -35px'}}
-                    kind="clear"
-                    onClick={() => onClearBoard()}
-                />
+                <div className={ positions.marginTop25 }>
+                    <UIButton
+                        label="clear"
+                        kind="clear"
+                        cssClass={ ['clear'] }
+                        onClick={() => onClearBoard()}
+                    />
+                </div>
             : false}
-            <Spinner style={style.spinner} isLoading={equities.isLoading} />
+            <Spinner isLoading={equities.isLoading} />
         </div>
     );
 };
@@ -75,23 +83,8 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-const style = {
-    base: {
-        maxWidth: '300px',
-        margin: '50px auto',
-        paddingLeft: '20px',
-        width: '100%'
-    },
-    spinner: {
-        position: 'absolute',
-        top: '15px',
-        left: '50%'
-    }
-
-};
-
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Radium(Home));
+)(Home);

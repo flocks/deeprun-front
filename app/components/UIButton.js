@@ -1,62 +1,33 @@
 import React, { PropTypes } from 'react';
-import Radium from 'radium';
+import cx from 'classnames';
+import buttons from '../styles/buttons.scss';
 
-const UIButton = ({ ...props }) => (
-    <button
-        onClick={props.onClick}
-        style={[style.base, style[props.kind], props.style]}
-    >
-        {props.label}
-    </button>
-);
+const UIButton = ({ ...props }) => {
+    const arr = [props.className, buttons[props.kind]];
+    const c = cx.apply(this, arr);
+
+    return (
+        <button
+            onClick={props.onClick}
+            className={c}
+        >
+            {props.label}
+        </button>
+    );
+};
 
 UIButton.defaultProps = {
     onClick: () => {},
-    kind: 'normal',
     label: '',
-    style: {}
+    kinds: ''
 };
 
 UIButton.propTypes = {
     onClick: PropTypes.func,
-    label: PropTypes.string,
     kind: PropTypes.string,
-    style: PropTypes.object
+    className: PropTypes.string,
+    label: PropTypes.string,
 };
 
-const style = {
-    base: {
-        border: 'none',
-        cursor: 'pointer',
-        outline: 'none',
-        height: '35px',
-        borderBottom: '2px solid #928f8f',
-        fontSize: '17px',
-        fontWeight: '600',
-        minWidth: '80px',
-        transition: 'background 200ms ease',
-        color: '#4d4d4d',
-        ':hover': {
-            background: '#b7b7b7'
-        }
-    },
-    clear: {
-        background: 'rgb(173, 173, 173)',
-        color: 'white',
-        ':hover': {
-            background: '#928f8f'
-        }
-    },
-    green: {
-        background: '#64c353',
-        borderBottom: '2px solid rgb(84, 167, 69)',
-        color: 'white',
-        ':hover': {
-            background: '#50a241'
-        }
-    },
-    normal: {
-    }
-};
 
-export default Radium(UIButton);
+export default UIButton;
