@@ -3,10 +3,10 @@ import utils from '../utils/utils';
 import request from 'superagent';
 import _ from 'lodash';
 
-export function filterTable(filter) {
+export function switchHandpickerMode(mode) {
     return {
-        type: types.FILTER,
-        filter
+        type: types.CHANGE_HANDPICKER_MODE,
+        mode: mode
     };
 }
 
@@ -25,130 +25,75 @@ export function closeModal(modalId) {
     };
 }
 
-
-function addCardDispatch(card, street) {
-    return {
-        type: types.ADD_CARD,
-        card: card,
-        street: street
-    };
-}
-
 function startEquitiesDispatch() {
     return { type: types.START_EQUITIES };
 }
 
-export function addCard(card, street) {
-    return ( dispatch, getState ) => {
-        dispatch(addCardDispatch(card, street));
+export function addCard(card, street, mode) {
+    return {
+        type: types.ADD_CARD,
+        card: card,
+        street: street,
+        mode: mode
+    };
+}
 
-        const cards = getState().cards;
-        if (utils.areEquitiesCalculable(cards)) {
+export function validSelection(cards, street) {
+    return ( dispatch, getState ) => {
+        dispatch({
+            type: types.VALID_CARDS_SELECTION,
+            cards: cards,
+            street: street
+        });
+
+
+        const cardsState = getState().cards;
+        if (utils.areEquitiesCalculable(cardsState)) {
             dispatch(startEquitiesDispatch());
-            callApi(cards, dispatch);
+            callApi(cardsState, dispatch);
         }
     };
 }
 
-export function removeCard(card, street) {
+export function removeCard(card, street, mode) {
     return {
         type: types.REMOVE_CARD,
         card: card,
-        street: street
+        street: street,
+        mode: mode
     };
 }
 
 export function clearBoard() {
-    return (dispatch, getState) => {
-        dispatch({
-            type: types.CLEAR_BOARD
-        });
-
-        const cards = getState().cards;
-        if (utils.areEquitiesCalculable(cards)) {
-            dispatch(startEquitiesDispatch());
-            callApi(cards, dispatch);
-        }
+    return {
+        type: types.CLEAR_BOARD
     };
+        // const cards = getState().cards;
+        // if (utils.areEquitiesCalculable(cards)) {
+        //     dispatch(startEquitiesDispatch());
+        //     callApi(cards, dispatch);
 }
 
-export function clearPlayer(player) {
-    return (dispatch, getState) => {
-        dispatch({
-            type: types.CLEAR_PLAYER,
-            player: player
-        });
-
-        const cards = getState().cards;
-        if (utils.areEquitiesCalculable(cards)) {
-            dispatch(startEquitiesDispatch());
-            callApi(cards, dispatch);
-        }
+export function clearCards(mode) {
+    return {
+        type: types.CLEAR_CARDS,
+        mode: mode
     };
-}
-
-export function clearFlop() {
-    return ( dispatch, getState ) => {
-        dispatch({type: types.CLEAR_FLOP });
-        const cards = getState().cards;
-
-        if (utils.areEquitiesCalculable(cards)) {
-            dispatch(startEquitiesDispatch());
-            callApi(cards, dispatch);
-        }
-    };
-}
-
-export function clearTurn() {
-    return ( dispatch, getState ) => {
-        dispatch({type: types.CLEAR_TURN });
-        const cards = getState().cards;
-
-        if (utils.areEquitiesCalculable(cards)) {
-            dispatch(startEquitiesDispatch());
-            callApi(cards, dispatch);
-        }
-    };
-}
-
-export function clearRiver() {
-    return ( dispatch, getState ) => {
-        dispatch({type: types.CLEAR_RIVER });
-        const cards = getState().cards;
-
-        if (utils.areEquitiesCalculable(cards)) {
-            dispatch(startEquitiesDispatch());
-            callApi(cards, dispatch);
-        }
-    };
-}
-
-function formatCard(card) {
-    if (!_.isEmpty(card)) {
-        return card.rank + card.suit.charAt(0);
-    }
-
-    return '';
 }
 
 function formatCardsPlayers(cards) {
     const arrayCards = [];
 
-    if (cards.player1 && !_.isEmpty(cards.player1)) {
-        arrayCards.push(formatCard(cards.player1[0]) + formatCard(cards.player1[1]));
-    }
-
-    if (cards.player2 && !_.isEmpty(cards.player2)) {
-        arrayCards.push(formatCard(cards.player2[0]) + formatCard(cards.player2[1]));
-    }
-
-    if (cards.player3 && !_.isEmpty(cards.player3)) {
-        arrayCards.push(formatCard(cards.player3[0]) + formatCard(cards.player3[1]));
-    }
-
-    if (cards.player4 && !_.isEmpty(cards.player4)) {
-        arrayCards.push(formatCard(cards.player4[0]) + formatCard(cards.player4[1]));
-    }
+    const loop = ['player1', 'player2', 'player3', 'player4'];
+    _.each(loop, p => {
+        if (cards[p] !== '') {
+            if (utils.isRange(cards[p])) {
+                arrayCards.push(utils.formatRangeForAPI(cards[p]));
+            } else {
+                arrayCards.push(cards[p]);
+            }
+        }
+    });
 
     return arrayCards;
 }
@@ -163,12 +108,16 @@ function callApi(cards, dispatch) {
 
     const cardsPlayers = formatCardsPlayers(cards);
 
-    _.map(cards.flop, (c) => {
-        board += formatCard(c);
-    });
+    board += cards.flop;
 
-    board += formatCard(cards.turn);
-    board += formatCard(cards.river);
+
+    if (cards.turn) {
+        board += cards.turn;
+    }
+
+    if (cards.river) {
+        board += cards.river;
+    }
 
     return request.post('http://deeprun.poker:8000/api')
         .send({ hands: cardsPlayers, board: board })
@@ -179,22 +128,14 @@ function callApi(cards, dispatch) {
 
 
 function gotEquities(result, cards) {
-    // const r1 = _.isUndefined(result[0]) ? null : truncate(result[0][1]);
-    // const r2 = _.isUndefined(result[1]) ? null : truncate(result[1][1]);
-    // const r3 = _.isUndefined(result[2]) ? null : truncate(result[2][1]);
-    // const r4 = _.isUndefined(result[3]) ? null : truncate(result[3][1]);
-
     const equities = [null, null, null, null];
-
-    // console.log(result);
-    // console.log(cards);
 
     const indexPlayers = [];
     const range = _.range(1, 5);
 
     _.map(range, i => {
         const index = 'player' + i;
-        if (cards[index].length === 2) {
+        if (cards[index].length >= 1 && cards[index][0] !== '') {
             indexPlayers.push(i);
         }
     });
@@ -202,7 +143,6 @@ function gotEquities(result, cards) {
     _.map(result, (r, i) => {
         const iPlayer = indexPlayers[i];
         equities[iPlayer - 1] = truncate(r[1]);
-        console.log(iPlayer);
     });
 
     return {

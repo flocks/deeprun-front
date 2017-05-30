@@ -1,14 +1,23 @@
 import React, { PropTypes } from 'react';
 import UICard from './UICard';
+import utils from '../utils/utils';
 import { playerrow, equity } from '../styles/board.scss';
+import RangeRow from './RangeRow';
 
 const PlayerRow = ({ ...props }) => {
+    const card1 = props.cards.slice(0, 2);
+    const card2 = props.cards.slice(2, 4);
+
     return (
         <div className={ playerrow } onClick={props.onClick}>
-            <div>
-                <UICard card={props.cards[0]} />
-                <UICard card={props.cards[1]} />
-            </div>
+            { (utils.isRange(props.cards)) ?
+                <RangeRow cards={ props.cards } />
+            :
+                <div>
+                    <UICard range={card1} />
+                    <UICard range={card2} />
+                </div>
+            }
 
             {(props.equity) ?
                 <div className={ equity }> {props.equity}%</div>
@@ -20,13 +29,13 @@ const PlayerRow = ({ ...props }) => {
 };
 
 PlayerRow.defaultProps = {
-    cards: [{}, {}],
+    cards: '',
     equity: null,
     onClick: function() {}
 };
 
 PlayerRow.propTypes = {
-    cards: PropTypes.arrayOf(PropTypes.object),
+    cards: PropTypes.string,
     equity: PropTypes.number,
     onClick: PropTypes.func
 };

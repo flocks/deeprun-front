@@ -26,23 +26,22 @@ const Home = ({onModal, cards, onClearBoard, equities}) => {
                     <PlayerRow
                         key={p}
                         equity={equities[p]}
-                        onClick={() => onModal('cardPicker', {street: p})}
+                        onClick={() => onModal('cardPicker', {street: p, cards: cards})}
                         cards={cards[p]}
                     />
                 );
             })}
             <p className={ styles.label }>Board</p>
             <Board
-                onClick={(street) => onModal('cardPicker', {street: street})}
+                onClick={(street) => onModal('cardPicker', {street: street, cards: cards})}
                 cards={cards}
             />
 
             {(utils.isClearable(cards)) ?
-                <div className={ positions.marginTop25 }>
+                <div className={ positions.marginTop20 }>
                     <UIButton
                         label="clear"
                         kind="clear"
-                        cssClass={ ['clear'] }
                         onClick={() => onClearBoard()}
                     />
                 </div>

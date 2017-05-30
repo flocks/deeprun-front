@@ -24,7 +24,11 @@
 }
 
 @media screen and (max-width: 500px) {
+    .playerrow {
+        height: 55px;
+    }
+
     .equity {
-        top: 5px;
+        top: 9px;
     }
 }

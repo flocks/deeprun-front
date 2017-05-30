@@ -27,7 +27,7 @@ module.exports = {
         // change name because the hash part changes. We want hash name changes to bust cache
         // on client browsers.
         new HtmlWebpackPlugin({
-            template: 'app/index.tpl.html',
+            template: 'app/index-production.tpl.html',
             inject: 'body',
             filename: 'index.html'
         }),

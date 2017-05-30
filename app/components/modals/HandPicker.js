@@ -1,131 +1,67 @@
 import React, { PropTypes } from 'react';
-import { addCard, removeCard, clearFlop, clearTurn, clearRiver, clearPlayer } from '../../actions';
-import UICard from '../UICard';
+import {validSelection, addCard, removeCard, clearCards, switchHandpickerMode } from '../../actions';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import UIButton from '../UIButton';
 import utils from '../../utils/utils';
 // import closeImage from '../../images/close.png';
 import styles from '../../styles/handpicker.scss';
 import modalBinding from '../decorators/modalBinding';
+import RangePicker from './RangePicker';
+import HandPickerSingle from './HandPickerSingle';
+import SwitchButton from './SwitchButton';
 
 
-const isDisabled = (_card, _cardsDisabled) => {
-    let disabled = false;
-    _.each(_cardsDisabled, (card) => {
-        if (card.rank === _card.rank && _card.suit === card.suit) {
-            disabled = true;
-        }
-    });
-
-    return disabled;
-};
-
-const isSelected = (_card, _cardsSelected) => {
-    let selected = false;
-
-    _.each(_cardsSelected, (card) => {
-        if (card.rank === _card.rank && _card.suit === card.suit) {
-            selected = true;
-        }
-    });
-
-    return selected;
-};
-
-const extractSelectedCards = (cards, street) => {
-    let selectedCards = [];
-    switch(street) {
-        case 'turn':
-        case 'river':
-            if (cards[street]) {
-                selectedCards.push(cards[street]);
-            }
-            break;
-        default:
-            selectedCards = [...selectedCards, ...cards[street]];
-            break;
-    }
-
-    return selectedCards;
-};
-
-const isSelectable = (cardsSelected, street) => {
-    let selectable = true;
-
-    switch(street) {
-        case 'player1':
-        case 'player2':
-        case 'player3':
-        case 'player4':
-            selectable = (cardsSelected.length < 2);
-            break;
-        case 'flop':
-            selectable = (cardsSelected.length < 3);
-            break;
-        default:
-            selectable = true;
-            break;
-    }
-
-    return selectable;
-};
-
-const HandPicker = ({ ...props, onUnselect, onSelect, onClearFlop, onClearTurn, onClearRiver, onClearPlayer }) => {
-    const ranks = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2'];
-    const suits = ['heart', 'spade', 'club', 'diamond'];
-    const disabledCards = utils.getDisabledCardsForStreet(props.cards, props.street);
-
-    const selectedCards = extractSelectedCards(props.cards, props.street);
-
-    const HandleClick = (card) => {
-        if (isSelected(card, selectedCards)) {
-            onUnselect(card,  props.street);
-        } else if (isSelectable(selectedCards, props.street)) {
-            onSelect(card, props.street);
-        }
-    };
-
+const HandPicker = ({ ...props, onUnselect, onSelect, onClearCards, onSwitchHandPickerMode }) => {
     const clearStreet = () => {
-        if (props.street === 'flop') {
-            onClearFlop();
-        } else if (props.street === 'turn') {
-            onClearTurn();
-        } else if (props.street === 'river') {
-            onClearRiver();
-        } else {
-            onClearPlayer(props.street);
-        }
+        onClearCards(props.handpicker.mode);
+        // if (props.handpicker.mode === 'single') {
+        //     if (props.street === 'flop') {
+        //         onClearFlop();
+        //     } else if (props.street === 'turn') {
+        //         onClearTurn();
+        //     } else if (props.street === 'river') {
+        //         onClearRiver();
+        //     } else {
+        //         onClearPlayer(props.street);
+        //     }
+        // }
     };
 
+    const valid = () => {
+        props.onValidSelection(props.handpicker[props.handpicker.mode], props.street);
+        props.closeModal();
+    };
 
     return (
         <div className={ styles.handpicker }>
             <div>
                 <h3>{utils.capitalizeFirstLetter(props.street)}</h3>
+                <SwitchButton
+                    mode={ props.handpicker.mode }
+                    callback={onSwitchHandPickerMode }
+                />
             </div>
             <div>
-                { _.map(suits, suit => {
-                    return _.map(ranks, rank => {
-                        const key = suit + '_' + rank;
-                        const card = { rank: rank, suit: suit};
-
-                        return (
-                            <UICard
-                                card={card}
-                                key={key}
-                                selected={isSelected(card, selectedCards)}
-                                disabled={isDisabled(card, disabledCards)}
-                                onClick={HandleClick.bind(this, card)}
-                            />
-                        );
-                    });
-                })}
-
+                { (props.handpicker.mode === 'single') ?
+                    <HandPickerSingle
+                        cards={ props.cards }
+                        selectedCards={ props.handpicker.single }
+                        street={ props.street }
+                        select={ onSelect }
+                        unselect={ onUnselect }
+                    />
+                :
+                    <RangePicker
+                        street={ props.street }
+                        cards={ props.handpicker.range }
+                        select={ onSelect }
+                        unselect={ onUnselect }
+                    />
+                }
             </div>
             <div className={ styles.footer }>
                 <UIButton kind="clear" label="clear" onClick={clearStreet} kind="clear" />
-                <UIButton className={ styles.valid } kind="valid" label="Ok" onClick={props.closeModal} />
+                <UIButton className={ styles.valid } kind="valid" label="Ok" onClick={valid} />
             </div>
         </div>
     );
@@ -134,29 +70,29 @@ const HandPicker = ({ ...props, onUnselect, onSelect, onClearFlop, onClearTurn, 
 HandPicker.propTypes = {
     closeModal: PropTypes.func,
     cards: React.PropTypes.object,
+    handpicker: React.PropTypes.object,
     street: React.PropTypes.string,
+    onValidSelection: React.PropTypes.func,
     onSelect: React.PropTypes.func,
-    onClearPlayer: React.PropTypes.func,
-    onClearFlop: React.PropTypes.func,
-    onClearTurn: React.PropTypes.func,
-    onClearRiver: React.PropTypes.func,
+    onClearCards: React.PropTypes.func,
+    onSwitchHandPickerMode: React.PropTypes.func,
     onUnselect: React.PropTypes.func
 };
 
 const mapStateToProps = (state) => {
     return {
-        cards: state.cards
+        cards: state.cards,
+        handpicker: state.handpicker
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onSelect: (card, street) => dispatch(addCard(card, street)),
-        onClearPlayer: (player) => dispatch(clearPlayer(player)),
-        onClearFlop: () => dispatch(clearFlop()),
-        onClearTurn: () => dispatch(clearTurn()),
-        onClearRiver: () => dispatch(clearRiver()),
-        onUnselect: (card, street) => dispatch(removeCard(card, street))
+        onSelect: (card, street, mode) => dispatch(addCard(card, street, mode)),
+        onValidSelection: (cards, street) => dispatch(validSelection(cards, street)),
+        onClearCards: (mode) => dispatch(clearCards(mode)),
+        onSwitchHandPickerMode: (mode) => dispatch(switchHandpickerMode(mode)),
+        onUnselect: (card, street, mode) => dispatch(removeCard(card, street, mode))
     };
 };
 

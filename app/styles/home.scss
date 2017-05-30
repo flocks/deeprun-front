@@ -20,6 +20,15 @@
     }
 }
 
+.share { 
+    position: absolute;
+    bottom: 50px;
+    width: 100px;
+    left: 50%;
+    margin-left: -50px;
+}
+
+
 @media screen and (max-width: 400px) {
     .home {
         width: 90%;

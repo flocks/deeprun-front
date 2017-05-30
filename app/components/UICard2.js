@@ -2,16 +2,15 @@ import React, { PropTypes } from 'react';
 import cx from 'classnames';
 import styles from '../styles/card.scss';
 
-const UICard2 = ({ ...props }) => {
+const UICard = ({ ...props }) => {
     const handleClick = () => {
         if (!props.disabled) {
             props.onClick();
         }
     };
 
-    const suit = props.range.charAt(1);
 
-    let className = cx(styles.card, styles[suit], {
+    let className = cx(styles.card, styles[props.card.suit], {
         [styles.selected]: props.selected,
         [styles.disabled]: props.disabled
     });
@@ -21,25 +20,28 @@ const UICard2 = ({ ...props }) => {
             className={ className }
             onClick={handleClick}
         >
-            <div>{props.range.charAt(0)}</div>
+            <div>{props.card.rank}</div>
         </div>
     );
 };
 
-UICard2.defaultProps = {
-    range: '',
+UICard.defaultProps = {
+    card: {
+        rank: null,
+        suit: null
+    },
     onClick: function onClick() {},
     disabled: false,
     selected: false
 };
 
-UICard2.propTypes = {
+UICard.propTypes = {
     onClick: PropTypes.func,
     disabled: PropTypes.bool,
-    range: PropTypes.string,
+    card: PropTypes.object,
     selected: PropTypes.bool,
     style: PropTypes.object
 };
 
 
-export default UICard2;
+export default UICard;

@@ -1,18 +1,24 @@
 .handpicker {
     background: white;
     position: absolute;
-    top: 80px;
+    top: 35px;
     left: 50%;
     margin-left: -234px;
     width: 478px;
-    border-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
     box-shadow: 2px 3px 15px grey;
     padding: 20px;
     z-index: 2;
 
     h3 {
         margin-top: 0;
+        color: #342838;
+        padding-top: 5px;
+        font-size: 20px;
+        padding-left: 3px;
     }
+
 
     .card {
         width: 50px;
@@ -35,13 +41,23 @@
     margin-top: 20px;
 }
 
+
 @media screen and (max-width: 500px) {
     .handpicker {
-        width: 313px;
+        width: 310px;
         padding: 5px;
         border-radius: 0;
         margin-left: -160px;
         top: 35px;
+
+        h3 {
+            color: #342838;
+            padding-left: 22px;
+            line-height: 34px;
+            margin: 0;
+            font-size: 16px;
+            margin-bottom: 3px;
+        }
     }
 }
 
