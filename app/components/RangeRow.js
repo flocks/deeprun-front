@@ -4,8 +4,16 @@ import utils from '../utils/utils';
 
 const RangeRow = ({ ...props }) => {
     utils.formatRange(props.cards);
+    const truncate = (str) => {
+        if (str.length > 35) {
+            return str.substring(0, 35) + '...';
+        }
+
+        return str;
+    };
+
     return (
-        <div className={ styles.range }>{utils.formatRange(props.cards)}</div>
+        <div className={ styles.range }>{truncate(utils.formatRange(props.cards))}</div>
     );
 };
 

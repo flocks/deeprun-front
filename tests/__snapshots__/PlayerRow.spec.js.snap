@@ -2,110 +2,29 @@
 
 exports[`<PlayerRow /> should render properly with cards 1`] = `
 <div
-  data-radium={true}
+  className={undefined}
   onClick={[Function]}
-  style={
-    Object {
-      "marginBottom": "20px",
-      "position": "relative",
-      "textAlign": "left",
-    }
-  }
 >
-  <div
-    data-radium={true}
-  >
+  <div>
     <div
-      data-radium={true}
+      className=""
       onClick={[Function]}
-      style={
-        Object {
-          "background": "#5B97DF",
-          "borderColor": "#5B97DF",
-          "borderStyle": "solid",
-          "borderWidth": "4px",
-          "boxSizing": "border-box",
-          "color": "white",
-          "cursor": "pointer",
-          "display": "inline-block",
-          "fontFamily": "Montserrat",
-          "fontSize": "25px",
-          "fontWeight": "800",
-          "height": "54px",
-          "lineHeight": "45px",
-          "marginRight": "5px",
-          "textAlign": "center",
-          "transition": "all 200ms linear",
-          "verticalAlign": "bottom",
-          "width": "40px",
-        }
-      }
     >
-      <div
-        style={undefined}
-      >
-        8
+      <div>
+        A
       </div>
     </div>
     <div
-      data-radium={true}
+      className=""
       onClick={[Function]}
-      style={
-        Object {
-          "background": "#5B97DF",
-          "borderColor": "#5B97DF",
-          "borderStyle": "solid",
-          "borderWidth": "4px",
-          "boxSizing": "border-box",
-          "color": "white",
-          "cursor": "pointer",
-          "display": "inline-block",
-          "fontFamily": "Montserrat",
-          "fontSize": "25px",
-          "fontWeight": "800",
-          "height": "54px",
-          "lineHeight": "45px",
-          "marginRight": "5px",
-          "textAlign": "center",
-          "transition": "all 200ms linear",
-          "verticalAlign": "bottom",
-          "width": "40px",
-        }
-      }
     >
-      <div
-        style={undefined}
-      >
-        7
+      <div>
+        K
       </div>
     </div>
   </div>
-  <p
-    data-radium={true}
-    style={
-      Object {
-        "color": "#A09D9D",
-        "fontSize": "13px",
-        "fontStyle": "italic",
-        "marginTop": "5px",
-      }
-    }
-  >
-    player 1
-  </p>
   <div
-    data-radium={true}
-    style={
-      Object {
-        "color": "grey",
-        "fontFamily": "Montserrat",
-        "fontSize": "35px",
-        "fontWeight": "800",
-        "position": "absolute",
-        "right": "25px",
-        "top": "5px",
-      }
-    }
+    className={undefined}
   >
      
     45
@@ -116,107 +35,29 @@ exports[`<PlayerRow /> should render properly with cards 1`] = `
 
 exports[`<PlayerRow /> should render properly with empty value 1`] = `
 <div
-  data-radium={true}
+  className={undefined}
   onClick={[Function]}
-  style={
-    Object {
-      "marginBottom": "20px",
-      "position": "relative",
-      "textAlign": "left",
-    }
-  }
 >
-  <div
-    data-radium={true}
-  >
+  <div>
     <div
-      data-radium={true}
+      className=""
       onClick={[Function]}
-      style={
-        Object {
-          "background": "#D7D8D7",
-          "borderColor": "#D7D8D7",
-          "borderStyle": "solid",
-          "borderWidth": "4px",
-          "boxSizing": "border-box",
-          "color": "white",
-          "cursor": "pointer",
-          "display": "inline-block",
-          "fontFamily": "Montserrat",
-          "fontSize": "25px",
-          "fontWeight": "800",
-          "height": "54px",
-          "lineHeight": "45px",
-          "marginRight": "5px",
-          "textAlign": "center",
-          "transition": "all 200ms linear",
-          "verticalAlign": "bottom",
-          "width": "40px",
-        }
-      }
     >
-      <div
-        style={undefined}
-      />
+      <div>
+        
+      </div>
     </div>
     <div
-      data-radium={true}
+      className=""
       onClick={[Function]}
-      style={
-        Object {
-          "background": "#D7D8D7",
-          "borderColor": "#D7D8D7",
-          "borderStyle": "solid",
-          "borderWidth": "4px",
-          "boxSizing": "border-box",
-          "color": "white",
-          "cursor": "pointer",
-          "display": "inline-block",
-          "fontFamily": "Montserrat",
-          "fontSize": "25px",
-          "fontWeight": "800",
-          "height": "54px",
-          "lineHeight": "45px",
-          "marginRight": "5px",
-          "textAlign": "center",
-          "transition": "all 200ms linear",
-          "verticalAlign": "bottom",
-          "width": "40px",
-        }
-      }
     >
-      <div
-        style={undefined}
-      />
+      <div>
+        
+      </div>
     </div>
   </div>
-  <p
-    data-radium={true}
-    style={
-      Object {
-        "color": "#A09D9D",
-        "fontSize": "13px",
-        "fontStyle": "italic",
-        "marginTop": "5px",
-      }
-    }
-  >
-    player 1
-  </p>
   <div
-    data-radium={true}
-    style={
-      Object {
-        "color": "grey",
-        "fontFamily": "Montserrat",
-        "fontSize": "35px",
-        "fontWeight": "800",
-        "opacity": "0.1",
-        "position": "absolute",
-        "right": "25px",
-        "top": "5px",
-      }
-    }
+    className={undefined}
   >
     %
   </div>

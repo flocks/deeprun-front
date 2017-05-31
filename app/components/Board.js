@@ -33,9 +33,9 @@ const Board = ({...props}) => {
 Board.defaultProps = {
     onClick: () => {},
     cards: {
-        flop: [{}, {}, {}],
-        turn: {},
-        river: {}
+        flop: '',
+        turn: '',
+        river: ''
     }
 };
 Board.propTypes = {

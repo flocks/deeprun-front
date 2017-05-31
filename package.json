@@ -1,7 +1,7 @@
 {
   "name": "webpack-react-redux",
   "version": "1.0.0",
-  "description": "A boilerplate for playing around with react, redux and react-router with the help of webpack.",
+  "description": "Online poker calculator. Compute euities of hand vs hand or hand range. Works on mobile too",
   "main": "index.js",
   "scripts": {
     "test": "jest --watch",
@@ -17,6 +17,11 @@
     "react",
     "redux"
   ],
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(scss)$": "/home/flocks/deeprun-front/node_modules/jest-css-modules"
+    }
+  },
   "author": "Jean-Pierre Sierens",
   "license": "MIT",
   "dependencies": {
@@ -55,6 +60,7 @@
     "html-webpack-plugin": "^2.16.1",
     "ignore-styles": "^5.0.1",
     "jest": "^19.0.1",
+    "jest-css-modules": "^1.1.0",
     "jsdom": "^9.11.0",
     "json-loader": "^0.5.4",
     "node-sass": "^3.7.0",

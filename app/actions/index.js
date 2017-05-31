@@ -68,10 +68,6 @@ export function clearBoard() {
     return {
         type: types.CLEAR_BOARD
     };
-        // const cards = getState().cards;
-        // if (utils.areEquitiesCalculable(cards)) {
-        //     dispatch(startEquitiesDispatch());
-        //     callApi(cards, dispatch);
 }
 
 export function clearCards(mode) {

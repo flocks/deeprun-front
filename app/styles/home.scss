@@ -22,10 +22,18 @@
 
 .share { 
     position: absolute;
-    bottom: 50px;
-    width: 100px;
+    bottom: 37px;
+    width: 225px;
     left: 50%;
-    margin-left: -50px;
+    margin-left: -112.5px;
+    text-align: center;
+    font-size: 13px;
+    color: #56435d;
+
+    span {
+        display: block;
+        margin-top: 10px;
+    }
 }
 
 

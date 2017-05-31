@@ -5,6 +5,7 @@ import PlayerRow from '../components/PlayerRow';
 import Board from '../components/Board';
 import UIButton from '../components/UIButton';
 import Spinner from '../components/Spinner';
+import Twitter from '../components/icons/twitter';
 import utils from '../utils/utils';
 import styles from '../styles/home.scss';
 import positions from '../styles/positions.scss';
@@ -47,6 +48,9 @@ const Home = ({onModal, cards, onClearBoard, equities}) => {
                 </div>
             : false}
             <Spinner isLoading={equities.isLoading} />
+            <div className={styles.share}>
+                <Twitter />
+            </div>
         </div>
     );
 };

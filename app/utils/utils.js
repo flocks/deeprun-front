@@ -120,9 +120,6 @@ const utils = {
         let t = [];
         let str = '';
 
-        if (off) {
-            console.log(cards);
-        }
         for (let i = 0; i < cards.length; ++i) {
             if (i === 0) {
                 t.push(cards[i]);
@@ -141,9 +138,6 @@ const utils = {
         if (t.length > 0) {
             groups.push(t);
         }
-
-        // console.log(off);
-        // console.log(groups);
 
         _.each(groups.reverse(), (sub, i) => {
             if (i > 0) {
@@ -169,7 +163,7 @@ const utils = {
             return false;
         }
 
-        if (cards.length <= 2) {
+        if (cards.length <= 2 && !_.includes(['h', 's', 'd', 'c'], cards.charAt(1))) {
             return true;
         }
 

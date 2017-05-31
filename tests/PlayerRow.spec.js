@@ -15,7 +15,7 @@ describe('<PlayerRow />', () => {
     });
 
     it('should render properly with cards', () => {
-        const cards = [{rank: '8', suit: 'diamond'}, {rank: '7', suit: 'diamond'}];
+        const cards = 'AhKd';
         const component = renderer.create(
             <PlayerRow
                 label="player 1"

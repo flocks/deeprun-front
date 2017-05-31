@@ -3,79 +3,88 @@ import utils from '../../app/utils/utils';
 describe('Utils', () => {
     it('should return  disabled cards for the giving street', () => {
         let board = {
-            player1: [{rank: '5', suit: 'spade'}, {rank: '4', suit: 'club'}],
-            player2: [{rank: '5', suit: 'heart'}, {rank: '4', suit: 'diamond'}],
-            flop: []
+            player1: '5s4c',
+            player2: '5h4d',
+            player3: '',
+            player4: '',
+            flop: '',
+            turn: '',
+            river: ''
         };
 
         expect(utils.getDisabledCardsForStreet(board, 'player1')).toEqual(
-            [{rank: '5', suit: 'heart'}, {rank: '4', suit: 'diamond'}]
+            ['5h', '4d']
         );
 
         expect(utils.getDisabledCardsForStreet(board, 'player2')).toEqual(
-            [{rank: '5', suit: 'spade'}, {rank: '4', suit: 'club'}]
+            ['5s', '4c']
         );
 
         board = {
-            player1: [{rank: '5', suit: 'spade'}, {rank: '4', suit: 'club'}],
-            player2: [{rank: '5', suit: 'heart'}, {rank: '4', suit: 'diamond'}],
-            flop: [{rank: 'K', suit: 'diamond'}, {rank: 'K', suit: 'heart'}, {rank: 'K', suit: 'club'}]
+            player1: '5s4c',
+            player2: '5h4d',
+            player3: '',
+            player4: '',
+            flop: 'KdKhKc',
+            turn: '',
+            river: ''
         };
 
         expect(utils.getDisabledCardsForStreet(board, 'flop')).toEqual(
-            [{rank: '5', suit: 'spade'},
-            {rank: '4', suit: 'club'},
-            {rank: '5', suit: 'heart'},
-            {rank: '4', suit: 'diamond'}]
+            ['5s', '4c', '5h', '4d']
         );
 
         expect(utils.getDisabledCardsForStreet(board, 'player1')).toEqual(
-            [{rank: '5', suit: 'heart'},
-            {rank: '4', suit: 'diamond'},
-            {rank: 'K', suit: 'diamond'},
-            {rank: 'K', suit: 'heart'},
-            {rank: 'K', suit: 'club'}]
+            ['5h', '4d', 'Kd', 'Kh', 'Kc']
         );
     });
 
 
     it('should return return true if equities can be calculated', () => {
         let board = {
-            player1: [],
-            player2: [],
-            flop: []
-        };
-
-        expect(utils.areEquitiesCalculable(board)).toBe(false);
-
-        board = {
-            player1: [{rank: '5', suit: 'spade'}],
-            player2: [{rank: '5', suit: 'heart'}],
-            flop: []
-        };
-
-        expect(utils.areEquitiesCalculable(board)).toBe(false);
-
-        board = {
-            player1: [{rank: '5', suit: 'spade'}, {rank: '4', suit: 'club'}],
-            player2: [{rank: '5', suit: 'heart'}, {rank: '4', suit: 'diamond'}],
-            flop: []
+            player1: '5s4c',
+            player2: '5h4d',
+            player3: '',
+            player4: '',
+            flop: 'KdKhKc',
+            turn: '',
+            river: ''
         };
 
         expect(utils.areEquitiesCalculable(board)).toBe(true);
 
-        // board = {
-        //     player1: [{rank: '5', suit: 'spade'}, {rank: '4', suit: 'club'}],
-        //     player2: [{rank: '5', suit: 'heart'}, {rank: '4', suit: 'diamond'}],
-        //     flop: [{rank: 'K', suit: 'diamond'}]
-        // };
-        //
-        // expect(utils.areEquitiesCalculable(board)).toBe(false);
+        board = {
+            player1: '5s4c',
+            player2: '5h4d',
+            player3: '',
+            player4: '',
+            flop: 'KdKh',
+            turn: '',
+            river: ''
+        };
+
+        expect(utils.areEquitiesCalculable(board)).toBe(false);
 
         board = {
-            player1: [{rank: '5', suit: 'spade'}, {rank: '4', suit: 'club'}],
-            player2: [{rank: '5', suit: 'heart'}, {rank: '4', suit: 'diamond'}],
-            flop: [{rank: 'K', suit: 'diamond'}, {rank: 'K', suit: 'heart'}, {rank: 'K', suit: 'club'}]
+            player1: 'AA',
+            player2: '5h4d',
+            player3: '',
+            player4: 'KK',
+            flop: '',
+            turn: '',
+            river: ''
+        };
+
+        expect(utils.areEquitiesCalculable(board)).toBe(true);
+
+        board = {
+            player1: 'AA',
+            player2: '5h4d',
+            player3: '',
+            player4: 'KK',
+            flop: 'KdKhKs',
+            turn: 'Ad',
+            river: 'Ts'
         };
 
         expect(utils.areEquitiesCalculable(board)).toBe(true);

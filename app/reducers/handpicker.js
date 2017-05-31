@@ -22,7 +22,6 @@ const equities = (state = defaultState, action) => {
         case types.CLOSE_MODAL:
             return defaultState;
         case types.OPEN_MODAL:
-            console.log(action);
             if (utils.isRange(action.data.cards[action.data.street])) {
                 _copy.range = action.data.cards[action.data.street];
                 _copy.mode = 'range';

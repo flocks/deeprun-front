@@ -19,11 +19,18 @@ const oneModalState = () => {
             }
         }],
         cards: {
-            player1: [],
-            player2: [],
-            flop: [],
-            turn: {},
-            river: {}
+            player1: '',
+            player2: '',
+            player3: '',
+            player4: '',
+            flop: '',
+            turn: '',
+            river: ''
+        },
+        handpicker: {
+            mode: 'single',
+            range: '',
+            single: ''
         }
 
     };

@@ -5,15 +5,27 @@ import fakeStore from './helpers/fakeStore';
 import { Provider } from 'react-redux';
 
 
-const getState = () => ({equities: {}});
+const getState = () => ({
+    cards: {
+        player1: '',
+        player2: '',
+        player3: '',
+        player4: '',
+        flop: '',
+        turn: '',
+        river: ''
+    },
+    equities: {}
+    
+});
 
 describe('<Home />', () => {
-    it('should have 2 PlayerRow components', () => {
+    it('should have 4 PlayerRow components', () => {
         const component = mount(
             <Home store={fakeStore(getState)}/>
         );
 
-        expect(component.find('PlayerRow').length).toBe(2);
+        expect(component.find('PlayerRow').length).toBe(4);
     });
 
     it('should display a Board', () => {
